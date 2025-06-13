@@ -1,0 +1,44 @@
+/* * * * * * * * * * * * * * * * *
+ * Default project info
+ * * * * * * * * * * * * * * * * */
+def defaultVersion = "0.9.5"
+def defaultGroup = "eu.codlab"
+def repo = "the-inkwell/kotlin-mapcompose"
+
+def propSuffix = { prefix, suffixKeyName ->
+    return rootProject.properties.containsKey(suffixKeyName)
+            ? "${prefix}-${rootProject.properties[suffixKeyName]}" : prefix
+}
+
+ext {
+    minSdkVersion = 24
+    javaVersion = "17"
+    prop = { name, defValue ->
+        return rootProject.properties.containsKey(name)
+                ? rootProject.properties[name] : defValue
+    }
+
+    pomDescription = "Kotlin Multiplatform Map Compose forked from MapComposeMP"
+    pomInceptionYear = "${new Date().format("YYYY")}"
+    pomUrl = "https://github.com/$repo"
+    pomLicenseName = "Apache License"
+    pomLicenseUrl = "https://github.com/$repo/blob/main/LICENSE"
+    pomLicenseDistribution = ""
+    pomDeveloperId = "codlab - forker"
+    pomDeveloperName = "Kevin Le Perf"
+    pomDeveloperOrganization = "Codlabtech"
+    pomDeveloperOrganizationUrl = "https://codlab.eu"
+    pomScmUrl = "scm:git:github.com/${repo}.git"
+
+    sonarUrl = prop("sonarUrl", null)
+    sonarToken = prop("sonarToken", null)
+
+    signingKeyId = prop("signing.keyId", null)
+
+    group = prop("GROUP_ID", defaultGroup)
+    version = propSuffix(defaultVersion, "SUFFIX")
+    originalVersion = defaultVersion
+
+    projectVersionCode = 1
+    publishWithSources = true
+}

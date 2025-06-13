@@ -53,7 +53,7 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.voyager.navigation)
             implementation(libs.voyager.screenmodel)
-            implementation(project(":library"))
+            implementation(project(":kotlin-mapcompose"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
