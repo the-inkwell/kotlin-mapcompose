@@ -44,8 +44,11 @@ class MapState(
     fullHeight: Int,
     tileSize: Int = 256,
     workerCount: Int = getProcessorCount() - 1,
+    onActionListener: OnActionListener? = null,
     initialValuesBuilder: InitialValues.() -> Unit = {}
 ) : ZoomPanRotateStateListener {
+    private val onActionActualListener: ZoomPanRotateStateListener? =
+        onActionListener?.let { ActionStateListener(onActionListener) }
     private val initialValues = InitialValues().apply(initialValuesBuilder)
     internal val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     internal val zoomPanRotateState = ZoomPanRotateState(
@@ -118,18 +121,22 @@ class MapState(
 
     override fun onTouchDown() {
         touchDownCb?.invoke()
+        onActionActualListener?.onTouchDown()
     }
 
     override fun onPress() {
         markerRenderState.removeAllAutoDismissCallouts()
+        onActionActualListener?.onPress()
     }
 
     override fun onLongPress(x: Double, y: Double) {
         longPressCb?.invoke(x, y)
+        onActionActualListener?.onLongPress(x, y)
     }
 
     override fun onTap(x: Double, y: Double) {
         tapCb?.invoke(x, y)
+        onActionActualListener?.onTap(x, y)
     }
 
     override fun detectsTap(): Boolean = tapCb != null

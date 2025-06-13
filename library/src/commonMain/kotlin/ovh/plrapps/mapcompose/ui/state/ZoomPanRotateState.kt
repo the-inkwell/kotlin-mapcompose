@@ -650,3 +650,41 @@ interface ZoomPanRotateStateListener {
     fun interceptsTap(x: Double, y: Double, xPx: Int, yPx: Int): Boolean
     fun interceptsLongPress(x: Double, y: Double, xPx: Int, yPx: Int): Boolean
 }
+
+interface OnActionListener {
+    fun onTouchDown()
+    fun onPress()
+    fun onLongPress(x: Double, y: Double)
+    fun onTap(x: Double, y: Double)
+}
+
+open class ActionStateListener(private val listener: OnActionListener) :
+    ZoomPanRotateStateListener {
+    override fun onStateChanged() {
+        // nothing
+    }
+
+    override fun onTouchDown() = listener.onTouchDown()
+
+    override fun onPress() = listener.onPress()
+
+    override fun onLongPress(x: Double, y: Double) = listener.onLongPress(x, y)
+
+    override fun onTap(x: Double, y: Double) = listener.onTap(x, y)
+
+    final override fun detectsTap(): Boolean {
+        return false
+    }
+
+    final override fun detectsLongPress(): Boolean {
+        return false
+    }
+
+    final override fun interceptsTap(x: Double, y: Double, xPx: Int, yPx: Int): Boolean {
+        return false
+    }
+
+    final override fun interceptsLongPress(x: Double, y: Double, xPx: Int, yPx: Int): Boolean {
+        return false
+    }
+}
