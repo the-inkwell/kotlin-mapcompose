@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * * *
  * Default project info
  * * * * * * * * * * * * * * * * */
-def defaultVersion = "0.9.5"
+def defaultVersion = "0.10.0"
 def defaultGroup = "eu.codlab"
 def repo = "the-inkwell/kotlin-mapcompose"
 
